@@ -15,7 +15,6 @@ RUN set -x \
         libpng-dev \
         python3 \
     && npm install \
-    && apk del .build-dependencies \
     && npm prune --omit=dev \
 # Some setup tools need to be kept
 # RUN apk add --no-cache su-exec shadow
