@@ -2,8 +2,21 @@ name: Publish Docker image
 on:
   workflow_dispatch:
 jobs:
+  down:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: downloads remote file
+        run: |
+          curl -L https://github.com/Nriver/trilium-translation/releases/latest/download/trilium-cn-linux-x64-server.zip \
+          && uzip trilium-cn-linux-x64-server.zip
+      
+      
   docker:
     runs-on: ubuntu-latest
+    if: ${{success()}}
+    needs: [down]
     steps:
       - name: Checkout
         uses: actions/checkout@main
