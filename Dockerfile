@@ -1,10 +1,11 @@
 # !!! Don't try to build this Dockerfile directly, run it through bin/build-docker.sh script !!!
 FROM node:18.18.2-alpine
-ADD trilium-linux-x64-server /app
+ADD https://github.com/Nriver/trilium-translation/releases/latest/download/trilium-cn-linux-x64-server.zip /app
 # Create app directory
 WORKDIR /app
 # Install app dependencies
-RUN set -x \
+RUN rm -rf node node_modules \
+    && set -x \
     && apk add --no-cache --virtual .build-dependencies \
         autoconf \
         automake \
