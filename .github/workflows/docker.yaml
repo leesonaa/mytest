@@ -7,6 +7,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+      - name: Initialization environment
+        run : |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          sudo timedatectl set-timezone "Asia/Shanghai"
       - name: downloads remote file
         run: |
           wget https://github.com/Nriver/trilium-translation/releases/latest/download/trilium-cn-linux-x64-server.zip \
@@ -20,7 +25,6 @@ jobs:
           else
             echo "ischanges=false" >> $GITHUB_ENV
           fi
-
       - name: Commit and Push
         if: env.ischanges == 'true'
         run: |
