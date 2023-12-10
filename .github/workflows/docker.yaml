@@ -7,7 +7,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-        
+      - name: checkout version
+        run: |
+          version=$(cat package.json | sed -n 's/.*"version": "\(.*\)".*/\1/p')
+          echo >> echo "version=$version" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         
@@ -26,5 +29,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
           push: true
-          tags: leesonaa/test
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/trilium:latest
+            ${{ secrets.DOCKER_USERNAME }}/trilium:${{ env.version }}
 
