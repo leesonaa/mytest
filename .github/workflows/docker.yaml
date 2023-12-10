@@ -10,7 +10,9 @@ jobs:
       - name: downloads remote file
         run: |
           curl -L https://github.com/Nriver/trilium-translation/releases/latest/download/trilium-cn-linux-x64-server.zip \
-          && uzip trilium-cn-linux-x64-server.zip
+          && uzip trilium-cn-linux-x64-server.zip \
+          && cd trilium-linux-x64-server \
+          && rm -rf node node_modules
       
       
   docker:
