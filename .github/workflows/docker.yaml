@@ -20,6 +20,7 @@ jobs:
       - name: show workspace
         run: |
           echo ${{ github.workspace }}
+          cd ..
           ls -lah
       -
         name: Build and push
