@@ -49,6 +49,8 @@ jobs:
         run: |
           version=$(cat version)
           echo >> echo "version=$version" >> $GITHUB_ENV
+          ls -la
+          echo $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         
