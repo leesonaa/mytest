@@ -5,7 +5,15 @@ ADD trilium-linux-x64-server /app
 WORKDIR /app
 # Install app dependencies
 RUN set -x \
-    && apk add python3 \
+    && apk add --no-cache --virtual  autoconf \
+        automake \
+        g++ \
+        gcc \
+        libtool \
+        make \
+        nasm \
+        libpng-dev \
+        python3 \
     && npm install 
 
 # Some setup tools need to be kept
