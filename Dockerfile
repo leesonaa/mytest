@@ -5,7 +5,7 @@ ADD trilium-linux-x64-server /app
 WORKDIR /app
 # Install app dependencies
 RUN apk update \
-    && apk add npm install 
+    && npm install 
 # Some setup tools need to be kept
 # RUN apk add --no-cache su-exec shadow
 
