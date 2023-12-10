@@ -14,7 +14,7 @@ jobs:
           sudo timedatectl set-timezone "Asia/Shanghai"
       - name: check and downloads remote file
         run: |
-          if [-d "trilium-linux-x64-server"];then
+          if [ -d "trilium-linux-x64-server" ]; then
             rm -rf trilium-linux-x64-server
           else          
             wget https://github.com/Nriver/trilium-translation/releases/latest/download/trilium-cn-linux-x64-server.zip \
@@ -22,7 +22,6 @@ jobs:
             && rm -rf trilium-cn-linux-x64-server.zip \
             && cd trilium-linux-x64-server \
             && rm -rf node node_modules \
-            || true
           fi
       - name: Check for changes
         run: |
