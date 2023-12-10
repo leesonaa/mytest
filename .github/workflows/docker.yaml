@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@main
       - name: checkout version
         run: |
-          version=$(cat package.json | sed -n 's/.*"version": "\(.*\)".*/\1/p')
+          version=$(cat version)
           echo >> echo "version=$version" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
