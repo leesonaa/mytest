@@ -17,6 +17,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: show workspace
+        run: |
+          echo ${{ github.workspace }}
+          ls -lah
       -
         name: Build and push
         uses: docker/build-push-action@v5
