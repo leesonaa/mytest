@@ -14,7 +14,7 @@ RUN set -x \
         nasm \
         libpng-dev \
         python3 \
-    && npm install 
+    && npm install \
     && apk del .build-dependencies \
     && npm prune --omit=dev \
 # Some setup tools need to be kept
