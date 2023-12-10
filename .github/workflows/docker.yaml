@@ -20,6 +20,7 @@ jobs:
       -
         name: show workspace
           echo ${{ github.workspace }}
+          ls -lha
       -
         name: Build and push
         uses: docker/build-push-action@v5
