@@ -6,7 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .
       - name: Initialization environment
         run : |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -43,8 +45,9 @@ jobs:
     if: ${{success()}}
     needs: [down]
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .
       - name: checkout version
         run: |
           version=$(cat version)
