@@ -12,13 +12,17 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           sudo timedatectl set-timezone "Asia/Shanghai"
-      - name: downloads remote file
+      - name: check and downloads remote file
         run: |
-          wget https://github.com/Nriver/trilium-translation/releases/latest/download/trilium-cn-linux-x64-server.zip \
-          && unzip trilium-cn-linux-x64-server.zip \
-          && rm -rf trilium-cn-linux-x64-server.zip \
-          && cd trilium-linux-x64-server \
-          && rm -rf node node_modules
+          if [-d "trilium-linux-x64-server"];then
+            rm -rf trilium-linux-x64-server
+          else          
+            wget https://github.com/Nriver/trilium-translation/releases/latest/download/trilium-cn-linux-x64-server.zip \
+            && unzip trilium-cn-linux-x64-server.zip \
+            && rm -rf trilium-cn-linux-x64-server.zip \
+            && cd trilium-linux-x64-server \
+            && rm -rf node node_modules
+          fi
       - name: Check for changes
         run: |
           if [ -n "$(git status -s | grep -v -w timestamp)" ];then
