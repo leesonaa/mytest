@@ -13,6 +13,20 @@ jobs:
           && unzip trilium-cn-linux-x64-server.zip \
           && cd trilium-linux-x64-server \
           && rm -rf node node_modules
+      - name: Check for changes
+        run: |
+          if [ -n "$(git status -s | grep -v -w timestamp)" ];then
+            echo "ischanges=true" >> $GITHUB_ENV
+          else
+            echo "ischanges=false" >> $GITHUB_ENV
+          fi
+
+      - name: Commit and Push
+        if: env.ischanges == 'true'
+        run: |
+          git add .
+          git commit -m "update $(date +%Y-%m-%d" "%H:%M:%S)"
+          git push -f
       
       
   docker:
