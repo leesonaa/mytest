@@ -5,6 +5,10 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: clone repo
+        run: |
+          git clone  https://github.com/leesonaa/mytest.git
+          cd mytest
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
