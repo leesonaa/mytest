@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  pc:
+    build:
+      context: .
+      dockerfile: Dockerfile.pc
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=mydatabase
+      - DB_USERNAME=myuser
+      - DB_PASSWORD=mypassword
+    depends_on:
+      - db
+    networks:
+      - my-network
+
+  h5:
+    build:
+      context: .
+      dockerfile: Dockerfile.h5
+    ports:
+      - "8081:80"
+    environment:
+      - H5_APP_URL=http://your-h5-app-url
+      - H5_DB_DATABASE=h5database
+      - H5_DB_USERNAME=h5user
+      - H5_DB_PASSWORD=h5password
+    depends_on:
+      - db
+    networks:
+      - my-network
+
+  db:
+    image: mysql:5.5
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # 初始化 SQL 文件
+    networks:
+      - my-network
+
+networks:
+  my-network:

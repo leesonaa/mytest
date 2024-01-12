@@ -1,0 +1,24 @@
+# 使用官方 PHP 镜像，版本 7.3，同时包含 Apache
+FROM php:7.3-apache
+
+# 设置工作目录
+WORKDIR /var/www/html
+
+# 复制本地 H5 PHP 项目到容器中
+COPY h5/ /var/www/html/
+
+# 安装 mysqli 扩展，用于与 MySQL 数据库交互
+RUN docker-php-ext-install mysqli
+
+# 配置 Apache 以允许 .htaccess 文件生效
+RUN a2enmod rewrite
+
+# 配置伪静态
+COPY h5-apache-config.conf /etc/apache2/sites-available/000-default.conf
+
+# 复制启动脚本到容器
+COPY entrypoint-h5.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# 启动 Apache
+CMD ["/usr/local/bin/entrypoint.sh"]

@@ -1,0 +1,18 @@
+# 使用官方 PHP 镜像，版本 5.6，同时包含 Apache
+FROM php:5.6-apache
+
+# 设置工作目录
+WORKDIR /var/www/html
+
+# 复制本地 PC PHP 项目到容器中
+COPY pc/ /var/www/html/
+
+# 安装 mysqli 扩展，用于与 MySQL 数据库交互
+RUN docker-php-ext-install mysqli
+
+# 复制启动脚本到容器
+COPY entrypoint-pc.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# 启动 Apache
+CMD ["/usr/local/bin/entrypoint.sh"]
